@@ -1,0 +1,32 @@
+{
+  "name": "namaste-react",
+  "version": "1.0.0",
+  "description": "This is Namaste React By Akshay Saini learning by K V S Vedesh",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vedesh2000/namaste-react.git#main"
+  },
+  "keywords": [
+    "Namaste",
+    "React",
+    "Akshay",
+    "Saini"
+  ],
+  "author": "Akshay Saini and Vedesh K V S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vedesh2000/namaste-react/issues"
+  },
+  "homepage": "https://github.com/vedesh2000/namaste-react/tree/main#readme",
+  "devDependencies": {
+    "parcel": "^2.9.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
