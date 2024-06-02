@@ -1,70 +1,74 @@
 import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import useOnlineStatus from './../utils/useOnlineStatus'
+import useRestaurantList from './../utils/useRestaurantList'
 
 const Body = () => {
-  const [listofRestaurants, setlistofRestaurant] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const listofRestaurants = useRestaurantList();
+  const [showTopRated, setShowTopRated] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [filteredRestaurants, setFilteredRestaurants] = useState(listofRestaurants);
+  const onlineStatus = useOnlineStatus();
+  if(onlineStatus === false){
+    return (
+      <h1>
+        Oops... Seems like you are not connected to the network! Please connect and retry.
+      </h1>
+    )
+  }
   useEffect(() => {
-    fetchData();
-  }, []);
+    handleSearch();
+  }, [searchText, showTopRated, listofRestaurants]);
 
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=16.7106604&lng=81.0952431&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    // console.log("List of Restaurants");
-    // console.log(json);
-    setlistofRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+  const handleSearch = () => {
+    let filtered = listofRestaurants;
+
+    if (showTopRated) {
+      filtered = filtered.filter((res) => res.info.avgRating > 4);
+    }
+
+    if (searchText) {
+      filtered = filtered.filter((res) =>
+        res.info.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+    setFilteredRestaurants(filtered);
   };
-
+  
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
       <div className="filter">
-        <div className="search">
-          <input
-            type="text"
-            className="search-box"
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              const filteredRestaurants = listofRestaurants.filter((res) =>
-                res.info.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setFilteredRestaurants(filteredRestaurants);
-              // console.log(listofRestaurants[0].info.name);
-            }}
-          >
-            Search
-          </button>
-        </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            // Filter listofRestaurants
-            let filteredRestaurants = listofRestaurants.filter(
-              (res) => res.info.avgRating > 4
-            );
-            setFilteredRestaurants(filteredRestaurants);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+      <div className="search">
+        <input
+          type="text"
+          className="search-box"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
       </div>
+      <div className="filter-options">
+        <label>
+          <input
+            type="radio"
+            checked={!showTopRated}
+            onChange={() => setShowTopRated(false)}
+          />
+          All Restaurants
+        </label>
+        <label>
+          <input
+            type="radio"
+            checked={showTopRated}
+            onChange={() => setShowTopRated(true)}
+          />
+          Top Rated Restaurants
+        </label>
+      </div>
+    </div>
       <div className="res-container">
         {filteredRestaurants.map((restaurant) => (
           <Link to={"/restaurants/" + restaurant.info.id} key={restaurant.info.id}>
