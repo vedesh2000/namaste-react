@@ -24,21 +24,44 @@ const RestaurantMenu = () => {
   }
 
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <h2>{cuisines.join(",")}</h2>
-      <h2>{costForTwoMessage}</h2>
-      <ul>
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} -{" "}
-            {item.card.info.price / 100 || item.card.info.defaultPrice / 100}{" "}
-            rupees{" "}
-          </li>
-        ))}
-      </ul>
+    <div className="p-4 bg-orange-100 dark:bg-slate-900 dark:text-white">
+      <h1 className="font-bold text-3xl text-center mb-4 ">
+        Welcome to {name}!
+      </h1>
+      <h2 className="font-bold text-2xl text-center mb-4">
+        Our Cuisines: {cuisines.join(", ")}
+      </h2>
+      <h3 className="font-bold text-xl text-center mb-4">
+        Our Special Offer: {costForTwoMessage}
+      </h3>
+      <div className="overflow-x-auto dark:text-white">
+        <table className="min-w-full bg-white border border-gray-200 dark:bg-slate-950">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">
+                Item Name
+              </th>
+              <th className="py-2 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">
+                Price (in Rupees)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {itemCards.map((item) => (
+              <tr key={item.card.info.id}>
+                <td className="py-2 px-4 border-b">
+                  {item.card.info.name}
+                </td>
+                <td className="py-2 px-4 border-b">
+                  {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  );
+  );  
 };
 
 export default RestaurantMenu;

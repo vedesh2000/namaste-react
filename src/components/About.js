@@ -10,11 +10,10 @@ class About extends Component {
     }
     render(){
         return (
-            <div>
-                <h1>About</h1>
-                <h2>This is Namaste react web series</h2>
-                {/* <User name={"Vedesh (function)"}/> */}
-                <User name={"Vedesh (class)"} location={"HYD (class)"}/>
+            <div className="bg-orange-100 dark:bg-slate-900 text-black dark:text-white">
+                <h1 className="text-2xl font-bold">About Me</h1>
+                <h2 className="text-xl py-1">This is a project to show menus list from Swiggy from Eluru City</h2>
+                <User/>
             </div>
         )
     }

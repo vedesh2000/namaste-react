@@ -1,8 +1,8 @@
 const Grocery = () => {
   return (
-    <h1>
+    <h1 className="text-center text-2xl py-8">
         {" "}
-        Our grocery online store, and we have a lot of child componetns
+        Our grocery online store is coming soon...
     </h1>
   );
 };

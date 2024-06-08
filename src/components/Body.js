@@ -40,36 +40,40 @@ const Body = () => {
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="filter">
-      <div className="search">
-        <input
-          type="text"
-          className="search-box"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-      </div>
-      <div className="filter-options">
-        <label>
+    <div className="bg-orange-100 dark:bg-slate-900">
+      <div>
+        <div className="py-4 bg-red-200 dark:bg-gray-600 dark:text-white">
+          <label className="font-bold pl-4 pr-0 font-cursive">
+            Search Restaurant
+          </label>
           <input
-            type="radio"
-            checked={!showTopRated}
-            onChange={() => setShowTopRated(false)}
+            className="border-black mx-6 px-6 bg-gray-10 rounded-lg h-[40px] dark:bg-gray-800 font-cursive"
+            type="text"
+            value={searchText}
+            placeholder="Enter Restaurant Name"
+            onChange={(e) => setSearchText(e.target.value)}
           />
-          All Restaurants
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={showTopRated}
-            onChange={() => setShowTopRated(true)}
-          />
-          Top Rated Restaurants
-        </label>
+          <label className="font-cursive">
+            <input
+              className="border-black mx-6 px-6 "
+              type="radio"
+              checked={!showTopRated}
+              onChange={() => setShowTopRated(false)}
+            />
+            All Restaurants
+          </label>
+          <label className="font-cursive">
+            <input
+            className="border-black mx-6 px-6"
+              type="radio"
+              checked={showTopRated}
+              onChange={() => setShowTopRated(true)}
+            />
+            Top Rated Restaurants
+          </label>
+        </div>
       </div>
-    </div>
-      <div className="res-container">
+      <div className="flex flex-wrap dark:text-white">
         {filteredRestaurants.map((restaurant) => (
           <Link to={"/restaurants/" + restaurant.info.id} key={restaurant.info.id}>
             <RestaurantCard resData={restaurant} />

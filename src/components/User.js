@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const User = (props) => {
+const User = () => {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
@@ -10,25 +10,25 @@ const User = (props) => {
             setUserInfo(json);
         };
         fetchUserInfo();
-
-        const timer = setInterval(() => {
-            console.log("Namaste React");
-        }, 1000);
-
-        return () => {
-            clearInterval(timer);
-        }
     }, []);
 
-    const { name, location, avatar_url } = userInfo;
+    const { url, company, name, location, avatar_url } = userInfo;
+    console.log(url);
     return (
         <div className="user-card">
-            <img src={avatar_url} alt="User Avatar" />
-            <h2>Name: {name}</h2>
-            <h3>Location: {location}</h3>
-            <h2>Contact: @asdf</h2>
-            <h2>Component: @functional</h2>
-
+            <img className="w-[250px] h-[250px] rounded-3xl py-3" src={avatar_url} alt="User Avatar" />
+            <h2 className="py-2">
+                <span className="font-bold">Name:</span> {" " + name}
+            </h2>
+            <h2 className="py-2">
+                <span className="font-bold">Company:</span> {" " + company}
+            </h2>
+            <span className="font-bold py-2">Github URL:</span>
+                <a href={url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                { " " + url}
+            </a>
+            <h3 className="py-2"> <span className="font-bold">Location:</span> {" " + location}</h3>
+            <h2 className="py-2"><span className="font-bold">Contact:</span> vedeshkompella@gmail.com</h2>
         </div>
     );
 };
