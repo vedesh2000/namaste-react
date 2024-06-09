@@ -1,4 +1,4 @@
-import React, { lazy, Suspense} from "react";
+import React, { lazy, Suspense, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -8,18 +8,31 @@ import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Footer from "./components/Footer";
-// import Grocery from "./components/Grocery";
+import UserContext from "./utils/UserContext";
 
 //lazy loading
 
 const Grocery = lazy(() => import("./components/Grocery"))
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  //authentication
+  useEffect(() => {
+    // make API call with username and password
+    const data = {
+      name: "Vedesh K V S"
+    }
+    setUserName(data.name);
+  }, [])
+
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+      <div className="grid grid-rows-layout min-h-screen">
+        <Header />
+        <Outlet className="row-start-1 row-end-2"/>
+        <Footer className="row-start-2 row-end-3"/>
+      </div>
+    </UserContext.Provider>
   );
 };
 

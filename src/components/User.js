@@ -13,7 +13,7 @@ const User = () => {
     }, []);
 
     const { url, company, name, location, avatar_url } = userInfo;
-    console.log(url);
+    // console.log(url);
     return (
         <div className="user-card">
             <img className="w-[250px] h-[250px] rounded-3xl py-3" src={avatar_url} alt="User Avatar" />

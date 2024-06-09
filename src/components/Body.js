@@ -1,26 +1,34 @@
 import { Link } from "react-router-dom";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import { useState, useEffect } from "react";
-import useOnlineStatus from './../utils/useOnlineStatus'
-import useRestaurantList from './../utils/useRestaurantList'
+import { useState, useEffect, useContext } from "react";
+import useOnlineStatus from "./../utils/useOnlineStatus";
+import useRestaurantList from "./../utils/useRestaurantList";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const listofRestaurants = useRestaurantList();
   const [showTopRated, setShowTopRated] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [filteredRestaurants, setFilteredRestaurants] = useState(listofRestaurants);
+  const [filteredRestaurants, setFilteredRestaurants] =
+    useState(listofRestaurants);
   const onlineStatus = useOnlineStatus();
-  if(onlineStatus === false){
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
+
+  if (onlineStatus === false) {
     return (
       <h1>
-        Oops... Seems like you are not connected to the network! Please connect and retry.
+        Oops... Seems like you are not connected to the network! Please connect
+        and retry.
       </h1>
-    )
+    );
   }
   useEffect(() => {
     handleSearch();
   }, [searchText, showTopRated, listofRestaurants]);
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   const handleSearch = () => {
     let filtered = listofRestaurants;
@@ -36,7 +44,7 @@ const Body = () => {
     }
     setFilteredRestaurants(filtered);
   };
-  
+
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -64,19 +72,36 @@ const Body = () => {
           </label>
           <label className="font-cursive">
             <input
-            className="border-black mx-6 px-6"
+              className="border-black mx-6 px-6"
               type="radio"
               checked={showTopRated}
               onChange={() => setShowTopRated(true)}
             />
             Top Rated Restaurants
           </label>
+          <label className="font-bold pl-4 pr-0 font-cursive">User Name:</label>
+          <input
+            className="m-3 border border-black p-1 font-cursive rounded-xl dark:text-white dark:bg-gray-800"
+            type="text"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          ></input>
         </div>
       </div>
       <div className="flex flex-wrap dark:text-white">
         {filteredRestaurants.map((restaurant) => (
-          <Link to={"/restaurants/" + restaurant.info.id} key={restaurant.info.id}>
-            <RestaurantCard resData={restaurant} />
+          <Link
+            to={"/restaurants/" + restaurant.info.id}
+            key={restaurant.info.id}
+          >
+            {
+              //Shows restaurants with rating more than 4 as Promoted, because promoted tag is not there in our data
+              restaurant.info.avgRating > 4 ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )
+            }
           </Link>
         ))}
       </div>

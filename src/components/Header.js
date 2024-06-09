@@ -1,11 +1,13 @@
 import logo from "./../../assets/logo.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext.js";
 
 const Header = () => {
   const [theme, setTheme] = useState("light");
   const onlineStatus = useOnlineStatus();
+  const {loggedInUser} = useContext(UserContext);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -48,6 +50,7 @@ const Header = () => {
           >
             {theme === "light" ? "Dark Mode" : "Light Mode"}
           </button>
+          <li className="px-4 dark:text-white ">{loggedInUser}</li>
         </ul>
       </div>
     </div>
