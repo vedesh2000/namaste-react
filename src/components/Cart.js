@@ -18,7 +18,7 @@ const Cart = () => {
   return (
     <div className="text-center p-2 bg-orange-100 dark:bg-slate-900 dark:text-white">
       <div className="flex justify-between mx-10">
-        <h1 className="text-2xl font-bold">Cart (total value: {totalValue / 100})</h1>
+        <h1 className="text-2xl font-bold">Cart (Total value: {"₹" + totalValue / 100})</h1>
         <button
           className="p-2 m-2 bg-red-500 text-white rounded-lg"
           onClick={handleClearCart}

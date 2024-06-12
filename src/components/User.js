@@ -24,8 +24,8 @@ const User = () => {
                 <span className="font-bold">Company:</span> {" " + company}
             </h2>
             <span className="font-bold py-2">Github URL:</span>
-                <a href={url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                { " " + url}
+                <a href="https://github.com/vedesh2000" className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                { " GitHub Profile"}
             </a>
             <h3 className="py-2"> <span className="font-bold">Location:</span> {" " + location}</h3>
             <h2 className="py-2"><span className="font-bold">Contact:</span> vedeshkompella@gmail.com</h2>

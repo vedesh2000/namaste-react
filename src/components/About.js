@@ -19,6 +19,7 @@ class About extends Component {
                     </UserContext.Consumer>
                 </h1>
                 <h2 className="text-xl py-1">This is a project to show menus list from Swiggy from Eluru City</h2>
+                <h2 className="text-lg py-1">This project will showcase my React Skills</h2>
                 <User/>
             </div>
         )

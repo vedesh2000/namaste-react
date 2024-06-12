@@ -44,7 +44,21 @@ const Body = () => {
     }
     setFilteredRestaurants(filtered);
   };
-
+  if (listofRestaurants === undefined) {
+    return (
+      <div className="bg-orange-100 px-10 py-3 dark:bg-slate-900 text-black dark:text-white text-center">
+        <p className="font-bold font-2xl">Oops, as we are using API from Swiggy it seems like data from Swiggy Not rendered Properly as it is outside of their App!</p>
+         <p className="font-bold font-xl">Apologies... Could you please Retry by using Below Button</p>
+        
+        <button
+          className="p-2 m-1 rounded-lg text-white hover:border hover:border-white bg-black hover:bg-green-500 dark:bg-white dark:text-black"
+          onClick={window.location.reload}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -61,31 +75,35 @@ const Body = () => {
             placeholder="Enter Restaurant Name"
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <label className="font-cursive">
+          <div className="py-2">
+            <label className="font-cursive font-bold">
+              <input
+                className="border-black mx-6 px-6 "
+                type="radio"
+                checked={!showTopRated}
+                onChange={() => setShowTopRated(false)}
+              />
+              All Restaurants
+            </label>
+            <label className="font-cursive font-bold">
+              <input
+                className="border-black mx-6 px-6"
+                type="radio"
+                checked={showTopRated}
+                onChange={() => setShowTopRated(true)}
+              />
+              Top Rated Restaurants
+            </label>
+            <label className="font-bold pl-4 pr-0 font-cursive">
+              User Name:
+            </label>
             <input
-              className="border-black mx-6 px-6 "
-              type="radio"
-              checked={!showTopRated}
-              onChange={() => setShowTopRated(false)}
-            />
-            All Restaurants
-          </label>
-          <label className="font-cursive">
-            <input
-              className="border-black mx-6 px-6"
-              type="radio"
-              checked={showTopRated}
-              onChange={() => setShowTopRated(true)}
-            />
-            Top Rated Restaurants
-          </label>
-          <label className="font-bold pl-4 pr-0 font-cursive">User Name:</label>
-          <input
-            className="m-3 border border-black p-1 font-cursive rounded-xl dark:text-white dark:bg-gray-800"
-            type="text"
-            value={loggedInUser}
-            onChange={(e) => setUserName(e.target.value)}
-          ></input>
+              className="m-3 p-2 font-cursive rounded-xl dark:text-white dark:bg-gray-800"
+              type="text"
+              value={loggedInUser}
+              onChange={(e) => setUserName(e.target.value)}
+            ></input>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap dark:text-white">

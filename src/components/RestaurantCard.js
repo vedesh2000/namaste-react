@@ -50,7 +50,7 @@ export const withPromotedLabel = (RestaurantCard)  => {
   return (props) => {
     return(
       <div>
-        <label className="m-2 p-2 rounded-lg font-bold absolute bg-black text-white dark:bg-white dark:text-black">Top Rated</label>
+        <label className="m-2 p-2 rounded-lg font-bold absolute bg-black text-white dark:bg-white dark:text-black">⭐ Top Rated</label>
         <RestaurantCard {...props}/>
       </div>
     );
