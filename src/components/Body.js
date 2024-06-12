@@ -44,6 +44,7 @@ const Body = () => {
     }
     setFilteredRestaurants(filtered);
   };
+  
   if (listofRestaurants === undefined) {
     return (
       <div className="bg-orange-100 px-10 py-3 dark:bg-slate-900 text-black dark:text-white text-center">

@@ -11,8 +11,9 @@ const useRestaurantList = () => {
         const data = await fetch(RESTAURANT_API);
         const json = await data.json();
         setlistofRestaurant(
-          json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+          json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
         );
+        // console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
       };
       return listofRestaurants;
 }
