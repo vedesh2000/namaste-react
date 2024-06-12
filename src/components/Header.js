@@ -3,11 +3,15 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext.js";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [theme, setTheme] = useState("light");
   const onlineStatus = useOnlineStatus();
   const {loggedInUser} = useContext(UserContext);
+
+  // We are subscribing to the store using selector and which part of store is needed
+  const cartItems = useSelector((store) => store.cart.items);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -43,7 +47,9 @@ const Header = () => {
           <li className="px-4 dark:text-white ">
             <Link to="/contact">Contact us</Link>
           </li>
-          <li className="px-4 dark:text-white ">Cart</li>
+          <li className="px-4 dark:text-white font-bold">
+            <Link to="/cart"> Cart ({cartItems.length} items)</Link>
+          </li>
           <button
             className="px-4 py-2 bg-gray-200 dark:bg-gray-600 dark:text-white rounded"
             onClick={toggleTheme}

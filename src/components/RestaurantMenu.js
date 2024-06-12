@@ -42,8 +42,8 @@ const RestaurantMenu = () => {
       {/* {/* Categories Accordion UI */}
       {categories.map((category, index) => (
         <RestaurantCategory
+          key={category?.card?.card?.info?.id}
           data={category?.card?.card}
-          key={category?.card?.card?.id}
           showItems={index === showIndex && true}
           setShowIndex = {() => setShowIndex(index)}
           collapseAll = {() => setShowIndex(null)}
